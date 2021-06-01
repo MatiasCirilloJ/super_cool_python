@@ -1,6 +1,6 @@
 ref: example
 name : example
-description : A super cool python pack
+description : A example pack
 keywords:
   - python3
 version: 0.0.1
