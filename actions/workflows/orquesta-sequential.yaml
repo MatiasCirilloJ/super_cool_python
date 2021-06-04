@@ -22,8 +22,8 @@ tasks:
     next:
       - when: <% succeeded() %>
         publish: 
-          - greeting=<% result().stdout %>
-          - host_ip=<% result("host_ip") %>
+          greeting=<% result().stdout %>
+          host_ip=<% result("host_ip") %>
         do: task2
   task2:
     action: core.echo
