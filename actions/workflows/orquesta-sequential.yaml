@@ -7,7 +7,10 @@ input:
 
 vars:
   - greeting: null
-
+  - host_ip: null
+  - host_name: null
+  - service: null
+  
 output:
   - greeting: <% ctx().greeting %>
 
@@ -18,7 +21,9 @@ tasks:
       name: <% ctx().name %>
     next:
       - when: <% succeeded() %>
-        publish: greeting=<% result().stdout %>
+        publish: 
+          - greeting=<% result().stdout %>
+          - host_ip=<% result("host_ip") %>
         do: task2
   task2:
     action: core.echo
