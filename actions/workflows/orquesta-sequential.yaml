@@ -25,6 +25,11 @@ tasks:
           greeting=<% result().stdout %>
           host_ip=<% result().result.host_ip %>
         do: task2
+      - when: <% failed() %>
+        publish:
+          - greeting: <% ctx("greeting") %>, <% result().stdout %>
+        do:
+          - task4
   task2:
     action: core.echo
     input: 
@@ -37,6 +42,11 @@ tasks:
           - task3
   task3:
     action: core.echo message=<% ctx('greeting') %>
+    next:
+      - when: <% succeeded() %>
+        publish: greeting=<% result().stdout %>
+  task4:
+    action: core.echo message="ERROR"
     next:
       - when: <% succeeded() %>
         publish: greeting=<% result().stdout %>
