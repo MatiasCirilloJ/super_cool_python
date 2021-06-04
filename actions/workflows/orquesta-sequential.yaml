@@ -13,7 +13,9 @@ output:
 
 tasks:
   task1:
-    action: example.example_action_1 < ctx().name >
+    action: example.example_action_1
+    input: 
+      name: < ctx().name >
     next:
       - when: <% succeeded() %>
         publish: greeting=<% result().stdout %>
