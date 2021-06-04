@@ -13,7 +13,7 @@ output:
 
 tasks:
   task1:
-    action: core.echo message=<% ctx().name %>
+    action: example.example_action_1
     next:
       - when: <% succeeded() %>
         publish: greeting=<% result().stdout %>
