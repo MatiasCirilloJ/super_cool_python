@@ -7,6 +7,6 @@ entry_point: workflows/orquesta-sequential.yaml
 enabled: true
 parameters:
   name:
-    required: true
+    required: false
     type: string
     default: Lakshmi
