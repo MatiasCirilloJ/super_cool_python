@@ -23,12 +23,11 @@ tasks:
       - when: <% succeeded() %>
         publish: 
           greeting=<% result().stdout %>
-          host_ip=<% result("host_ip") %>
+          host_ip=<% result().result.host_ip %>
         do: task2
   task2:
     action: core.echo
-    input:
-      message: "All your base are belong to us!"
+    input: <% ctx("host_ip") %>
     next:
       - when: <% succeeded() %>
         publish:
