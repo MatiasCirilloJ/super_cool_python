@@ -28,7 +28,7 @@ tasks:
   task2:
     action: core.echo
     input: 
-      <% ctx("host_ip") %>
+      message: <% ctx("host_ip") %>
     next:
       - when: <% succeeded() %>
         publish:
