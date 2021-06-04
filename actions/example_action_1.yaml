@@ -4,3 +4,10 @@ runner_type: "python-script"
 description: "Print message to standard output."
 enabled: true
 entry_point: "example_action_1.py"
+parameters:
+    name:
+        type: "string"
+        description: "Name"
+        required: true
+        default: "Mati"
+        position: 0
