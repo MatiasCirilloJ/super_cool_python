@@ -4,4 +4,4 @@ class HelloStackStorm(Action):
     def run(self, name):
         print(name)
         resultado = {"host_ip": "res1", "resultado2": "res2"}
-        return (True, resultado)
+        return (False, resultado)
