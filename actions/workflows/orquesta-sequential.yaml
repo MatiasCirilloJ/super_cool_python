@@ -33,7 +33,7 @@ tasks:
   task2:
     action: example.example_action_2
     input: 
-      name2: <% ctx().name %>
+      name2: <% ctx("host_ip") %>
     next:
       - when: <% succeeded() %>
         publish: 
