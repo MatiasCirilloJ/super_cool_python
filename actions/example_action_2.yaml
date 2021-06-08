@@ -6,7 +6,7 @@ enabled: true
 entry_point: "example_action_2.py"
 parameters:
     name2:
-        type: "list"
+        type: "object"
         description: "Name"
         required: true
         position: 0
