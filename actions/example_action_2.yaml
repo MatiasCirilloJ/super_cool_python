@@ -1,0 +1,12 @@
+---
+name: "example_action_2"
+runner_type: "python-script"
+description: "Print message to standard output."
+enabled: true
+entry_point: "example_action_2.py"
+parameters:
+    name:
+        type: "list"
+        description: "Name"
+        required: true
+        position: 0
