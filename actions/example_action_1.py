@@ -2,5 +2,6 @@ from st2common.runners.base_action import Action
 
 class HelloStackStorm(Action):
     def run(self, name):
-        print(name + " | Funca")
-        return (True)
+        print(name)
+        resultado = {"host_ip": "res1", "resultado2": "res2"}
+        return (False, resultado)
