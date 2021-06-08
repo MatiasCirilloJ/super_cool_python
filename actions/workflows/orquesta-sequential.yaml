@@ -23,29 +23,43 @@ tasks:
       - when: <% succeeded() %>
         publish: 
           greeting=<% result().stdout %>
-          host_ip=<% result().result.host_ip %>
+          host_ip=<% result().result %>
         do: task2
       - when: <% failed() %>
         publish:
           - greeting: <% ctx("greeting") %>, <% result().stdout %>
         do:
-          - task4
-  task2:
+          - task5
+  task1:
+    action: example.example_action_1
+    input: 
+      name2: <% ctx().name %>
+    next:
+      - when: <% succeeded() %>
+        publish: 
+          greeting=<% result().stdout %>
+        do: task3
+      - when: <% failed() %>
+        publish:
+          - greeting: <% ctx("greeting") %>, <% result().stdout %>
+        do:
+          - task5
+  task3:
     action: core.echo
     input: 
-      message: <% ctx("host_ip") %>
+      message: <% ctx("greeting") %>
     next:
       - when: <% succeeded() %>
         publish:
           - greeting: <% ctx("greeting") %>, <% result().stdout %>
         do:
-          - task3
-  task3:
+          - task4
+  task4:
     action: core.echo message=<% ctx('greeting') %>
     next:
       - when: <% succeeded() %>
         publish: greeting=<% result().stdout %>
-  task4:
+  task5:
     action: core.echo message="ERROR"
     next:
       - when: <% succeeded() %>
