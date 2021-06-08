@@ -30,7 +30,7 @@ tasks:
           - greeting: <% ctx("greeting") %>, <% result().stdout %>
         do:
           - task5
-  task1:
+  task2:
     action: example.example_action_1
     input: 
       name2: <% ctx().name %>
