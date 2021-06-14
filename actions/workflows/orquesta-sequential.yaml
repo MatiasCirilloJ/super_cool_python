@@ -41,7 +41,7 @@ tasks:
         publish: 
           greeting=<% result().stdout %>
         do: task3
-      - when: <% failed() %>
+      - when: <% result().result %> == false
         publish:
           message="Example"
           key=false
