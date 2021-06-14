@@ -43,10 +43,10 @@ tasks:
         do: task3
       - when: <% result().result %> == false
         publish:
-          host_ip=
+          message="Example"
           key=false
         do:
-          - task2
+          - task5
   task3:
     action: core.echo
     input: 
