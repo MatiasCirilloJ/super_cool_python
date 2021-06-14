@@ -37,13 +37,13 @@ tasks:
       name2: <% ctx("host_ip") %>
       key: <% ctx("key") %>
     next:
-      - when: <% succeeded() %>
+      - when: <% result().result %> == true
         publish: 
           greeting=<% result().stdout %>
         do: task3
       - when: <% result().result %> == false
         publish:
-          message="Example"
+          host_ip=
           key=false
         do:
           - task2
