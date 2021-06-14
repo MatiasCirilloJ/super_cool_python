@@ -4,5 +4,5 @@ class HelloStackStorm(Action):
     def run(self, name2, key = False):
         print(name2)
         if key:
-            return (True)
+            return (False)
         return (True)
