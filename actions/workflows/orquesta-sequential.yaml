@@ -10,6 +10,7 @@ vars:
   - host_ip: null
   - host_name: null
   - service: null
+  - key: true
   
 output:
   - greeting: <% ctx().greeting %>
@@ -34,7 +35,7 @@ tasks:
     action: example.example_action_2
     input: 
       name2: <% ctx("host_ip") %>
-      key: true
+      key: <% ctx("key") %>
     next:
       - when: <% succeeded() %>
         publish: 
@@ -42,8 +43,8 @@ tasks:
         do: task3
       - when: <% failed() %>
         publish:
-          - message: "Example"
-          - key: false
+          message="Example"
+          key=false
         do:
           - task2
   task3:
