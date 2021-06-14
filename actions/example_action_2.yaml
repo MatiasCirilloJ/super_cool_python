@@ -10,3 +10,8 @@ parameters:
         description: "Name"
         required: true
         position: 0
+    key:
+        type: "boolean"
+        description: "Key"
+        required: false
+        position: 1

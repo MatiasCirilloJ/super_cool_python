@@ -34,6 +34,7 @@ tasks:
     action: example.example_action_2
     input: 
       name2: <% ctx("host_ip") %>
+      key: true
     next:
       - when: <% succeeded() %>
         publish: 
@@ -41,9 +42,10 @@ tasks:
         do: task3
       - when: <% failed() %>
         publish:
-          - greeting: <% ctx("greeting") %>, <% result().stdout %>
+          - message: "Example"
+          - key: false
         do:
-          - task5
+          - task2
   task3:
     action: core.echo
     input: 
