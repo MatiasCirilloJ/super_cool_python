@@ -55,7 +55,7 @@ tasks:
       private_key: '/home/stanley/.ssh/id_rsa'
       cmd: 'systemctl is-enabled docker'
     next:
-      - when: <% result()."10.54.158.192".stdout = 'enabled' %>
+      - when: <% result().hosts.stdout = 'enabled' %>
         publish: 
           greeting=<% result().stdout %>
         do: task3
