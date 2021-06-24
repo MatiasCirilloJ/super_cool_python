@@ -11,6 +11,7 @@ vars:
   - host_name: null
   - service: null
   - key: true
+  - hosts: null
   
 output:
   - greeting: <% ctx().greeting %>
@@ -55,7 +56,7 @@ tasks:
       private_key: '/home/stanley/.ssh/id_rsa'
       cmd: 'systemctl is-enabled docker'
     next:
-      - when: <% result().get(ctx().host).stdout = 'enabled' %>
+      - when: <% result().get(ctx().hosts).stdout = 'enabled' %>
         publish: 
           greeting=<% result().stdout %>
         do: task3
