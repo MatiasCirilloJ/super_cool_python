@@ -41,6 +41,7 @@ tasks:
       - when: <% succeeded() %>
         publish: 
           greeting=<% result().stdout %>
+          hosts=<% result().stdout %>
         do: View_container_status
       - when: <% failed() %> 
         publish:
@@ -51,7 +52,7 @@ tasks:
   View_container_status:
     action: core.remote
     input: 
-      hosts: '10.54.158.192'
+      hosts: <% ctx("hosts") %>
       username: 'root'
       private_key: '/home/stanley/.ssh/id_rsa'
       cmd: 'systemctl is-enabled docker'
