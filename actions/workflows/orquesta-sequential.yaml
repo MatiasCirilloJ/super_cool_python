@@ -40,13 +40,30 @@ tasks:
       - when: <% succeeded() %>
         publish: 
           greeting=<% result().stdout %>
-        do: task3
+        do: View_container_status
       - when: <% failed() %> 
         publish:
           message="Example"
           key=false
         do:
           - task2
+  View_container_status:
+    action: core.remote
+    input: 
+      hosts: '10.54.158.192'
+      username: 'root'
+      private_key: '/home/stanley/.ssh/id_rsa'
+      cmd: 'systemctl is-enabled docker'
+    next:
+      - when: <% result().stdout = 'enabled' %>
+        publish: 
+          greeting=<% result().stdout %>
+        do: task3
+      - when: <% failed() %>
+        publish:
+          - greeting: <% ctx("greeting") %>, <% result().stdout %>
+        do:
+          - task5
   task3:
     action: core.echo
     input: 
