@@ -41,7 +41,7 @@ tasks:
       - when: <% succeeded() %>
         publish: 
           greeting=<% result().stdout %>
-          hosts=<% result().stdout %>
+          hosts=<% result().result %>
         do: View_container_status
       - when: <% failed() %> 
         publish:
