@@ -69,7 +69,7 @@ tasks:
   task3:
     action: core.echo
     input: 
-      message: <% ctx("greeting").ctx("hosts") %>
+      message: <% ctx("greeting") %>.[0]
     next:
       - when: <% succeeded() %>
         publish:
