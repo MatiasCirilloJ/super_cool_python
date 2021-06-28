@@ -3,7 +3,7 @@ version: 1.0
 description: A basic sequential workflow.
 
 input:
-  - name
+  - message
 
 vars:
   - greeting: null
@@ -12,43 +12,38 @@ vars:
   - service: null
   - key: true
   - hosts: null
+  - msg_res: null
   
 output:
   - greeting: <% ctx().greeting %>
 
 tasks:
-  task1:
-    action: example.example_action_1
+  View_VM_status:
+    action: example.viewer
     input: 
-      name: <% ctx().name %>
+      message: <% ctx().message %>
+      VM: true
     next:
       - when: <% succeeded() %>
         publish: 
-          greeting=<% result().stdout %>
-          host_ip=<% result().result %>
-        do: task2
+          host_name=<% result().result %>
+        do: View_container_status
       - when: <% failed() %>
         publish:
-          - greeting: <% ctx("greeting") %>, <% result().stdout %>
-        do:
-          - task5
-  task2:
-    action: example.example_action_2
+          msg_res=<% result().result %>
+        do: Repair_VM
+  Repair_VM:
+    action: example.deadman_remediations_action
     input: 
-      name2: <% ctx("host_ip") %>
-      key: <% ctx("key") %>
+      message: <% ctx("msg_res") %>
     next:
       - when: <% succeeded() %>
-        publish: 
-          greeting=<% result().stdout %>
-          hosts=<% result().result %>
         do: View_container_status
       - when: <% failed() %> 
         publish:
-          message="Example"
-          key=false
+          - greeting: <% ctx("msg_res") %>, <% result().result %>
         do:
-          - task2
+          - task5
   View_container_status:
     action: example.viewer
     input: 
@@ -60,11 +55,11 @@ tasks:
     next:
       - when: <% succeeded() %>
         publish: 
-          greeting=<% result().stdout %>
+          greeting=<% result().result %>
         do: task3
       - when: <% failed() %>
         publish:
-          - greeting: <% ctx("greeting") %>, <% result().stdout %>
+          - greeting: <% ctx("greeting") %>, <% result().result %>
         do:
           - task5
   task3:

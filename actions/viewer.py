@@ -28,9 +28,9 @@ class EchoRemote(Action):
             vm = service_data[host]['VM']
             vm_status = vm_remed(vm, False)
             if vm_status:
-                return (False, host)
+                return (True, host)
             else:
-                message = "deadman-host={} status CRITICAL".format(host)
+                return (False, "deadman-host={} status CRITICAL".format(host))
 
 
         return (False, "False message")

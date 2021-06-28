@@ -1,0 +1,18 @@
+---
+name: "deadman_remediations_action"
+runner_type: "python-script"
+description: "NEP@L VM remediation action in StackStorm with ssh"
+enabled: true
+entry_point: "deadman_remediations_action.py"
+parameters:
+    message:
+        type: "string"
+        description: "Host to repair."
+        required: true
+        position: 0
+    timeout_poll:
+        type: "integer"
+        description: "time out for vm status polling"
+        required: true
+        default: "60"
+        position: 1
