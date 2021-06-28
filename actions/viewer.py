@@ -16,8 +16,10 @@ class EchoRemote(Action):
         if Docker:
             remote = subprocess.check_output("st2 run core.remote hosts='{}' username='{}' private_key='{}' cmd='{}' -j".format(hosts, username, private_key, cmd), shell=True)
             result_state = json.loads(remote)["result"][hosts]["stdout"]
-            if result_state is 'enabled':
-                return (True, result_state)            
+            if 'enabled' in result_state:
+                return (True, result_state)
+            else:
+                return (False, "Not enabled")           
         
         if VM:
             with open('/opt/stackstorm/packs/service_remediations_pack/actions/service_data.json') as file:
