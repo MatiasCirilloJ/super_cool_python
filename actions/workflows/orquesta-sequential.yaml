@@ -38,7 +38,6 @@ tasks:
       timeout_poll: 60
     next:
       - when: <% succeeded() %>
-        publish:
         do: View_container_status
       - when: <% failed() %> 
         publish:
