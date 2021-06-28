@@ -59,7 +59,7 @@ tasks:
     next:
       - when: <% succeeded() %>
         publish: 
-          greeting=<% result() %>
+          greeting="success"
         do: task3
       - when: <% failed() %>
         publish:
