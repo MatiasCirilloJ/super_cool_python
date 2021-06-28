@@ -20,8 +20,7 @@ class EchoRemote(Action):
             remote = subprocess.check_output("st2 run core.remote hosts='{}' username='{}' private_key='{}' cmd='{}' -j".format(hosts, username, private_key, cmd), shell=True)
             result_state = json.loads(remote)["result"][hosts]["stdout"]
             if 'enabled' in result_state:
-                #return (True, result_state)
-                return (True, "{} service docker status is CRITICAL value: 3".format(host_name))  
+                return (True, result_state) 
             else:
                 return (False, "{} service docker status is CRITICAL value: 3".format(host_name))         
         
