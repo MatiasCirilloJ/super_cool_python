@@ -52,6 +52,7 @@ tasks:
   View_container_status:
     action: example.echo_remote
     input: 
+      Docker: true
       hosts: <% ctx("hosts") %>
       username: 'root'
       private_key: '/home/stanley/.ssh/id_rsa'
@@ -59,7 +60,7 @@ tasks:
     next:
       - when: <% succeeded() %>
         publish: 
-          greeting="success"
+          greeting=<% result().stdout %>
         do: task3
       - when: <% failed() %>
         publish:

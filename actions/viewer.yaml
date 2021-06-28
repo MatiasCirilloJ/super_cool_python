@@ -8,20 +8,28 @@ parameters:
     hosts:
         type: "string"
         description: "Host"
-        required: true
-        position: 0
+        required: false
     username:
         type: "string"
         description: "Username"
-        required: true
-        position: 1
+        required: false
     private_key:
         type: "string"
         description: "Private key"
-        required: true
-        position: 2
+        required: false
     cmd:
         type: "string"
         description: "Command"
-        required: true
-        position: 3
+        required: false
+    message:
+        type: "string"
+        description: "Command"
+        required: false
+    VM:
+        type: "boolean"
+        description: "View VM state"
+        required: false
+    Docker:
+        type: "boolean"
+        description: "View VM state"
+        required: false
