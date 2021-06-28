@@ -52,27 +52,30 @@ tasks:
       username: 'root'
       private_key: '/home/stanley/.ssh/id_rsa'
       cmd: 'systemctl is-enabled docker'
+      message: <% ctx().message %>
     next:
       - when: <% succeeded() %>
         publish: 
           greeting=<% result().result %>
-        do: task3
+        do: Repair_Service
       - when: <% failed() %>
         publish:
-          - greeting: <% ctx("greeting") %>, <% result().result %>
+          - msg_res: <% result().result %>
         do:
-          - task5
-  task3:
-    action: core.echo
+          - Repair_Docker
+  Repair_Docker:
+    action: example.docker_remediations_action
     input: 
-      message: <% ctx("greeting") %>
+      message: <% ctx("msg_res") %>
     next:
       - when: <% succeeded() %>
+        do: View_container_status
+      - when: <% failed() %> 
         publish:
-          - greeting: <% ctx("greeting") %>, <% result().stdout %>
+          - greeting: <% ctx("msg_res") %>, <% result().result %>
         do:
-          - task4
-  task4:
+          - task5
+  Repair_Service:
     action: core.echo message=<% ctx('greeting') %>
     next:
       - when: <% succeeded() %>

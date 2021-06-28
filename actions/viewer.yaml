@@ -7,7 +7,7 @@ entry_point: "viewer.py"
 parameters:
     hosts:
         type: "string"
-        description: "Host"
+        description: "Host ip"
         required: false
     username:
         type: "string"

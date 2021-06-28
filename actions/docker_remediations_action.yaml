@@ -1,0 +1,11 @@
+---
+name: "docker_remediations_action"
+runner_type: "python-script"
+description: "NEP@L container remediation action in StackStorm with ssh"
+enabled: true
+entry_point: "docker_remediations_action.py"
+parameters:
+    message:
+        type: "string"
+        description: "Docker to repair."
+        required: true
