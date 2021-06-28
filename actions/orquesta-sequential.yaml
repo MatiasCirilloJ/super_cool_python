@@ -6,7 +6,7 @@ runner_type: orquesta
 entry_point: workflows/orquesta-sequential.yaml
 enabled: true
 parameters:
-  name:
+  message:
     required: true
     type: string
-    default: Lakshmi
+    default: "NEP@L_Monitoring is CRITICAL docker container stopped value:  1"
