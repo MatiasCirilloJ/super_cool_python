@@ -1,9 +1,9 @@
 ---
-name: "echo_remote"
+name: "viewer"
 runner_type: "python-script"
 description: "Print message to standard output."
 enabled: true
-entry_point: "echo_remote.py"
+entry_point: "viewer.py"
 parameters:
     hosts:
         type: "string"

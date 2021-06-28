@@ -50,7 +50,7 @@ tasks:
         do:
           - task2
   View_container_status:
-    action: example.echo_remote
+    action: example.viewer
     input: 
       Docker: true
       hosts: <% ctx("hosts") %>
