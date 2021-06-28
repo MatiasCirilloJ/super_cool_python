@@ -69,7 +69,7 @@ tasks:
       message: <% ctx("msg_res") %>
     next:
       - when: <% succeeded() %>
-        do: View_container_status
+        do: task4
       - when: <% failed() %> 
         publish:
           - greeting: <% ctx("msg_res") %>, <% result().result %>
@@ -77,6 +77,11 @@ tasks:
           - task5
   Repair_Service:
     action: core.echo message=<% ctx('greeting') %>
+    next:
+      - when: <% succeeded() %>
+        publish: greeting=<% result().stdout %>
+  task4:
+    action: core.echo message="LISTO"
     next:
       - when: <% succeeded() %>
         publish: greeting=<% result().stdout %>
