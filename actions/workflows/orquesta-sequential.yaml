@@ -11,7 +11,6 @@ vars:
   - host_name: null
   - service: null
   - key: true
-  - hosts: null
   - msg_res: null
   
 output:
@@ -40,7 +39,7 @@ tasks:
     next:
       - when: <% succeeded() %>
         publish:
-          hosts= <% result().stdout %>
+          host_ip= <% result().stdout %>
         do: View_container_status
       - when: <% failed() %> 
         publish:
@@ -51,7 +50,7 @@ tasks:
     action: example.viewer
     input: 
       Docker: true
-      hosts: <% ctx("hosts") %>
+      hosts: <% ctx("host_ip") %>
       username: 'root'
       private_key: '/home/stanley/.ssh/id_rsa'
       cmd: 'systemctl is-enabled docker'
