@@ -25,7 +25,7 @@ tasks:
     next:
       - when: <% succeeded() %>
         publish: 
-          host_name=<% result().result %>
+          - host_ip: <% result().stdout %>
         do: View_container_status
       - when: <% failed() %>
         publish:
@@ -39,7 +39,6 @@ tasks:
     next:
       - when: <% succeeded() %>
         publish:
-          host_ip= <% result().stdout %>
         do: View_container_status
       - when: <% failed() %> 
         publish:
