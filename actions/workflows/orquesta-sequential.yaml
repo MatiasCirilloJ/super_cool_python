@@ -36,6 +36,7 @@ tasks:
     action: example.deadman_remediations_action
     input: 
       message: <% ctx("msg_res") %>
+      timeout_poll: 60
     next:
       - when: <% succeeded() %>
         do: View_container_status
