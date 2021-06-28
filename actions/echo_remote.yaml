@@ -1,0 +1,27 @@
+---
+name: "echo_remote"
+runner_type: "python-script"
+description: "Print message to standard output."
+enabled: true
+entry_point: "echo_remote.py"
+parameters:
+    hosts:
+        type: "string"
+        description: "Host"
+        required: true
+        position: 0
+    username:
+        type: "string"
+        description: "Username"
+        required: true
+        position: 1
+    private_key:
+        type: "string"
+        description: "Private key"
+        required: true
+        position: 2
+    cmd:
+        type: "string"
+        description: "Command"
+        required: true
+        position: 3
