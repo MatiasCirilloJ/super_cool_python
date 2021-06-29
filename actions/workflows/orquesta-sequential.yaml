@@ -8,9 +8,6 @@ input:
 vars:
   - greeting: null
   - host_ip: null
-  - host_name: null
-  - service: null
-  - key: true
   - msg_res: null
   
 output:
@@ -38,12 +35,11 @@ tasks:
       timeout_poll: 60
     next:
       - when: <% succeeded() %>
-        do: View_container_status
+        do: Succeeded_task
       - when: <% failed() %> 
         publish:
-          - greeting: <% ctx("msg_res") %>, <% result().result %>
-        do:
-          - task5
+          - greeting: <% ctx("msg_res") %>, <% result().stderr %>
+        do: Failed_task
   View_container_status:
     action: example.viewer
     input: 
@@ -57,36 +53,36 @@ tasks:
       - when: <% succeeded() %>
         publish: 
           greeting=<% result().result %>
-        do: Repair_Service
+        do: Repair_Docker
       - when: <% failed() %>
         publish:
           - msg_res: <% result().result %>
         do:
-          - Repair_Docker
-  Repair_Docker:
-    action: example.docker_remediations_action
+          - Repair_Service
+  Repair_Service:
+    action: example.service_remediations_action
     input: 
       message: <% ctx("msg_res") %>
     next:
       - when: <% succeeded() %>
-        do: task4
+        do: Succeeded_task
       - when: <% failed() %> 
         publish:
-          - greeting: <% ctx("msg_res") %>, <% result().result %>
-        do:
-          - task5
-  Repair_Service:
-    action: core.echo message=<% ctx('greeting') %>
+          - greeting: <% ctx("msg_res") %>, <% result().stderr %>
+        do: Failed_task
+  Repair_Docker:
+    action: example.docker_remediations_action
+    input: 
+      message: <% ctx().message %>
     next:
       - when: <% succeeded() %>
         publish: greeting=<% result().stdout %>
-  task4:
-    action: core.echo message="LISTO"
-    next:
-      - when: <% succeeded() %>
-        publish: greeting=<% result().stdout %>
-  task5:
-    action: core.echo message="ERROR"
-    next:
-      - when: <% succeeded() %>
-        publish: greeting=<% result().stdout %>
+        do: Succeeded_task
+      - when: <% failed() %> 
+        publish:
+          - greeting: <% ctx().message %>, <% result().stderr %>
+        do: Failed_task
+  Succeeded_task:
+    action: core.echo message="Succeeded"
+  Failed_task:
+    action: core.echo message="Failed"
